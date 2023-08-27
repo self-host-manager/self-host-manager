@@ -1,0 +1,15 @@
+application:
+  name: self-host-manager
+
+spring:
+  datasource:
+    url: jdbc:h2:./h2/test
+    username: userName
+    password: secret
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    org.ivcode: DEBUG

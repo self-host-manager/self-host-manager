@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - preConditions:
+  - runningAs:
+      username: liquibase
+
+  # Create Table: Param Group
+  - changeSet:
+      id: 1.0.1
+      author: isaiah
+      changes:
+        - createTable:
+            tableName: param_group
+            columns:
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+  # Create Table: Param Value
+  - changeSet:
+      id: 1.0.2
+      author: isaiah
+      changes:
+        - createTable:
+            tableName: param_value
+            columns:
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: param_group_name
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: val
+                  type: varchar(255)
+
+  # Create Foreign Key Constraint: Param Name -> Param Group
+  - changeSet:
+      id: 1.0.3
+      author: isaiah
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: param_group_name
+            baseTableName: param_value
+            constraintName: fk_param_group_name
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: name
+            referencedTableName: param_group
+            validate: true
